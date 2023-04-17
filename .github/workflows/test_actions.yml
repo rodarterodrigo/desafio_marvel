@@ -1,31 +1,24 @@
-name: Android Release
+name: TestActions
 
-# 1
 on:
-  # 2
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
-  # 3
-  workflow_dispatch:
-
-# 4
 jobs:
-  # 5
   build:
-    # 6
     runs-on: ubuntu-latest
 
-    # 7
     steps:
-      # 8
       - uses: actions/checkout@v3
-      # 9
-      - name: Get dependencies
-        run: flutter pub get
+      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
 
-      # Runs a set of commands using the runners shell
-      # - name: Start release build
-      #  run: flutter build appbundle
+      - name: Install dependencies
+        run: dart pub get
+        
+      - name: Analyze project source
+        run: dart analyze
+        
+      - name: Run tests
+        run: dart test
