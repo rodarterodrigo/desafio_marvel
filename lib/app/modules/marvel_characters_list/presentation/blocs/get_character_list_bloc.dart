@@ -1,8 +1,11 @@
 import 'package:desafio_marvel/app/core/shared/modules/domain/failures/forbiden_failure.dart';
 import 'package:desafio_marvel/app/core/shared/modules/domain/failures/generic_failure.dart';
 import 'package:desafio_marvel/app/core/shared/modules/domain/failures/receive_timeout_failure.dart';
+import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/fetch_request_loading_state.dart';
+import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/fetch_request_success_state.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/forbiden_failure_state.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/generic_failure_state.dart';
+import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/get_request_success_state.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/global_states.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/loading_state.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/receive_timeout_failure_state.dart';
@@ -14,9 +17,6 @@ import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/usecase
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/events/fetch_character_list_event.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/events/get_character_list_event.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/events/marvel_character_list_events.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/states/fetch_request_loading_state.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/states/fetch_request_success_state.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/states/get_request_success_state.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/states/invalid_key_failure_state.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/states/method_not_allowed_failure_state.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/states/missing_parameter_failure_state.dart';

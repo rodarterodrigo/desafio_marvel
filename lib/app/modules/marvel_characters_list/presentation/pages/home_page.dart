@@ -1,11 +1,11 @@
 import 'package:desafio_marvel/app/core/routes/routes.dart';
+import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/fetch_request_loading_state.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/global_states.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/loading_state.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/character_data.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/events/fetch_character_list_event.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/events/get_character_list_event.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/get_character_list_bloc.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/states/fetch_request_loading_state.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/widgets/card_shimmers/character_card_shimmer.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/widgets/card_shimmers/list_view_character_card_shimmer.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/widgets/cards/list_view_chaacter_card.dart';
