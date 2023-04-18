@@ -26,7 +26,7 @@ flutter_modular to define all modules. The implementation consists
 in a domain layer, infrastructure layer, external layer and 
 presentation layer. 
 
-Presentation -> State Management -> Usecase(domain) -> Repository(Infrastructure) -> Datasource
+Presentation -> State Management -> Usecase(Domain) -> Repository(Infrastructure) -> Datasource(External)
 
 All modules consists in follow this sample. 
 
