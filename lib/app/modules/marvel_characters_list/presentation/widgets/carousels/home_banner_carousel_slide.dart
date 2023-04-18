@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:desafio_marvel/app/core/routes/routes.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/character_data.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/widgets/cards/character_card.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/widgets/carousels/bloc/slide_dots_bloc/slide_dots_bloc.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/widgets/carousels/slide_dots.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class HomeBannerCarouselSlide extends StatefulWidget {
   final List<CharacterData>? list;
@@ -73,10 +75,16 @@ class _HomeBannerCarouselSlideState extends State<HomeBannerCarouselSlide> {
                 itemBuilder: (context, index) {
                   return Center(
                     child: SizedBox(
-                      child: CharacterCard(
-                        characterData:
-                            widget.list![index % widget.list!.length],
-                        onTap: () {},
+                      child: Hero(
+                        tag: widget.list![index % widget.list!.length].id,
+                        child: CharacterCard(
+                          characterData:
+                              widget.list![index % widget.list!.length],
+                          onTap: () => Modular.to.pushNamed(
+                              Routes.characterDetail,
+                              arguments:
+                                  widget.list![index % widget.list!.length]),
+                        ),
                       ),
                     ),
                   );
