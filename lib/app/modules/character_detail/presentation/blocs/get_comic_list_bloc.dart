@@ -20,8 +20,9 @@ class GetComicListBloc extends Bloc<ComicListEvents, GlobalStates> {
   final GetComicListUsecase usecase;
 
   bool lastPage = false;
-  int page = 1;
-  int index = 0;
+  int page = 0;
+  int total = 0;
+  int count = 0;
   List<ComicDetailEntity> horizontalList = [];
 
   GetComicListBloc(this.usecase) : super(const LoadingState()) {
@@ -32,7 +33,7 @@ class GetComicListBloc extends Bloc<ComicListEvents, GlobalStates> {
   Future<void> _mapGetComicListToState(
       GetComicListEvent event, Emitter<GlobalStates> emitter) async {
     emitter(const LoadingState());
-    final request = await usecase(event.url, 0, 10);
+    final request = await usecase(event.url, 0, 5);
     emitter(
       request.fold((failure) {
         switch (failure.runtimeType) {
@@ -45,6 +46,8 @@ class GetComicListBloc extends Bloc<ComicListEvents, GlobalStates> {
         }
       }, (success) {
         horizontalList.addAll(success.results.list);
+        total = success.total;
+        count = success.count;
         return const GetRequestSuccessState();
       }),
     );
@@ -53,7 +56,7 @@ class GetComicListBloc extends Bloc<ComicListEvents, GlobalStates> {
   Future<void> _mapFetchComicListToState(
       FetchComicListEvent event, Emitter<GlobalStates> emitter) async {
     emitter(const FetchRequestLoadingState());
-    final result = await usecase(event.url, (page * 10), 10);
+    final result = await usecase(event.url, (page * 5), 5);
     emitter(result.fold((failure) {
       switch (failure.runtimeType) {
         case ReceiveTimeoutFailure:
@@ -64,11 +67,12 @@ class GetComicListBloc extends Bloc<ComicListEvents, GlobalStates> {
           return GenericFailureState(failure as GenericFailure);
       }
     }, (success) {
-      if (success.results.list.length == success.total) {
+      if (horizontalList.length == total) {
         lastPage = true;
       } else {
         lastPage = false;
       }
+      count = success.count;
       success.results.list.map((e) => horizontalList.add(e)).toList();
       return const FetchRequestSuccessState();
     }));

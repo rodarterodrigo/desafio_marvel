@@ -1,5 +1,8 @@
 import 'package:desafio_marvel/app/core/shared/modules/domain/failures/forbiden_failure.dart';
 import 'package:desafio_marvel/app/core/shared/modules/domain/failures/generic_failure.dart';
+import 'package:desafio_marvel/app/core/shared/modules/domain/failures/invalid_key_failure.dart';
+import 'package:desafio_marvel/app/core/shared/modules/domain/failures/method_not_allowed_failure.dart';
+import 'package:desafio_marvel/app/core/shared/modules/domain/failures/missing_parameter_failure.dart';
 import 'package:desafio_marvel/app/core/shared/modules/domain/failures/receive_timeout_failure.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/fetch_request_loading_state.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/fetch_request_success_state.dart';
@@ -10,9 +13,6 @@ import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/loading_state.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/receive_timeout_failure_state.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/character_data.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/failures/invalid_key_failure.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/failures/method_not_allowed_failure.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/failures/missing_parameter_failure.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/usecases/get_character_list_usecase.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/events/fetch_character_list_event.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/events/get_character_list_event.dart';
@@ -27,8 +27,11 @@ class GetCharacterListBloc
   final GetCharacterListUsecase usecase;
 
   bool lastPage = false;
-  int page = 1;
+  int page = 0;
   int index = 0;
+  int count = 0;
+  int total = 0;
+
   List<CharacterData> characterListinfinityScroll = [];
   List<CharacterData> characterListhorizontalScroll = [];
 
@@ -68,6 +71,8 @@ class GetCharacterListBloc
           }
           index++;
         }).toList();
+        count = success.data.count;
+        total = success.data.total;
         return const GetRequestSuccessState();
       }),
     );
@@ -95,7 +100,7 @@ class GetCharacterListBloc
           return GenericFailureState(failure as GenericFailure);
       }
     }, (success) {
-      if (success.data.characterList.list.length < 10) {
+      if ((characterListinfinityScroll.length - 5) == success.data.total) {
         lastPage = true;
       } else {
         lastPage = false;

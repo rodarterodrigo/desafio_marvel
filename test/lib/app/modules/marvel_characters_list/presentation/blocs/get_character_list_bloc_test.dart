@@ -1,6 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:desafio_marvel/app/core/shared/modules/domain/failures/forbiden_failure.dart';
 import 'package:desafio_marvel/app/core/shared/modules/domain/failures/generic_failure.dart';
+import 'package:desafio_marvel/app/core/shared/modules/domain/failures/invalid_key_failure.dart';
+import 'package:desafio_marvel/app/core/shared/modules/domain/failures/method_not_allowed_failure.dart';
+import 'package:desafio_marvel/app/core/shared/modules/domain/failures/missing_parameter_failure.dart';
 import 'package:desafio_marvel/app/core/shared/modules/domain/failures/receive_timeout_failure.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/fetch_request_loading_state.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/fetch_request_success_state.dart';
@@ -12,9 +15,6 @@ import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/character_list.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/data.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/request_success.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/failures/invalid_key_failure.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/failures/method_not_allowed_failure.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/failures/missing_parameter_failure.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/usecases/get_character_list_usecase.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/events/fetch_character_list_event.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/events/get_character_list_event.dart';

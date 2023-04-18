@@ -1,13 +1,13 @@
 import 'package:desafio_marvel/app/core/packages/http_response.dart';
 import 'package:desafio_marvel/app/core/packages/request_client.dart';
+import 'package:desafio_marvel/app/core/shared/modules/infrastructure/exceptions/forbiden_exception.dart';
 import 'package:desafio_marvel/app/core/shared/modules/infrastructure/exceptions/generic_exception.dart';
+import 'package:desafio_marvel/app/core/shared/modules/infrastructure/exceptions/invalid_key_exception.dart';
+import 'package:desafio_marvel/app/core/shared/modules/infrastructure/exceptions/method_not_allowed_exception.dart';
+import 'package:desafio_marvel/app/core/shared/modules/infrastructure/exceptions/missing_parameter_exception.dart';
 import 'package:desafio_marvel/app/core/shared/modules/infrastructure/exceptions/receive_timeout_exception.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/external/datasources/get_character_list_datasource_implementation.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/datasources/get_character_list_datasource.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/exceptions/forbiden_exception.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/exceptions/invalid_key_exception.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/exceptions/method_not_allowed_exception.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/exceptions/missing_parameter_exception.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/models/request_success_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

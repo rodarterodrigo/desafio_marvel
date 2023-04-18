@@ -6,6 +6,8 @@ import 'package:desafio_marvel/app/modules/character_detail/domain/entities/comi
 import 'package:desafio_marvel/app/modules/character_detail/presentation/blocs/events/fetch_comic_list_event.dart';
 import 'package:desafio_marvel/app/modules/character_detail/presentation/blocs/events/get_comic_list_event.dart';
 import 'package:desafio_marvel/app/modules/character_detail/presentation/blocs/get_comic_list_bloc.dart';
+import 'package:desafio_marvel/app/modules/character_detail/presentation/widgets/cards/comic_card.dart';
+import 'package:desafio_marvel/app/modules/character_detail/presentation/widgets/shimmers/comic_card_shimmer.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/character_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +28,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
   @override
   void initState() {
     comicListBloc.add(
-        GetComicListEvent(widget.characterData!.comics.collectionURI, 0, 10));
+        GetComicListEvent(widget.characterData!.comics.collectionURI, 0, 5));
     super.initState();
   }
 
@@ -113,6 +115,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 24),
               BlocBuilder<GetComicListBloc, GlobalStates>(
                 bloc: comicListBloc,
                 builder: (context, state) => Column(
@@ -122,33 +125,37 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                     const Text(
                       'Comics with this Character',
                       textAlign: TextAlign.start,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                    SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          NotificationListener<ScrollNotification>(
-                            onNotification: (scrollInfo) {
-                              if (scrollInfo.metrics.pixels ==
-                                  scrollInfo.metrics.maxScrollExtent) {
-                                if (!comicListBloc.lastPage) {
-                                  comicListBloc.page++;
-                                  comicListBloc.lastPage = true;
-                                  comicListBloc.add(
-                                    FetchComicListEvent(
-                                        limit: 10,
-                                        offset: 10 * comicListBloc.page,
-                                        url: widget.characterData!.comics
-                                            .collectionURI),
-                                  );
-                                }
-                              }
-                              return true;
-                            },
-                            child: state is LoadingState ||
+                    const SizedBox(height: 24),
+                    NotificationListener<ScrollNotification>(
+                      onNotification: (scrollInfo) {
+                        if (scrollInfo.metrics.pixels ==
+                            scrollInfo.metrics.maxScrollExtent) {
+                          if (!comicListBloc.lastPage) {
+                            comicListBloc.page++;
+                            comicListBloc.lastPage = true;
+                            comicListBloc.add(
+                              FetchComicListEvent(
+                                  url: widget
+                                      .characterData!.comics.collectionURI,
+                                  offset:
+                                      comicListBloc.page * comicListBloc.count,
+                                  limit: 5),
+                            );
+                          }
+                        }
+                        return true;
+                      },
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            state is LoadingState ||
                                     state is FetchRequestLoadingState
                                 ? SizedBox(
                                     height: 224,
@@ -163,12 +170,26 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                                                 baseColor: Colors.grey[100]!,
                                                 highlightColor:
                                                     Colors.grey[800]!,
-                                                child: const SizedBox(
-                                                  height: 224,
-                                                  width: 138,
+                                                child: const Card(
+                                                  shape: RoundedRectangleBorder(
+                                                    side: BorderSide(
+                                                      color: Colors.black,
+                                                      width: 0.5,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    4)),
+                                                  ),
+                                                  child: SizedBox(
+                                                    height: 224,
+                                                    width: 138,
+                                                  ),
                                                 ),
                                               ),
-                                          itemCount: 10)
+                                          itemCount: comicListBloc
+                                              .horizontalList.length)
                                     ]),
                                   )
                                 : SizedBox(
@@ -189,37 +210,18 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                                               if (state is LoadingState ||
                                                   state
                                                       is FetchRequestLoadingState) {
-                                                return Shimmer.fromColors(
-                                                  baseColor: Colors.grey[100]!,
-                                                  highlightColor:
-                                                      Colors.grey[800]!,
-                                                  child: const SizedBox(
-                                                    height: 224,
-                                                    width: 138,
-                                                  ),
-                                                );
+                                                return const ComicCardShimmer();
                                               } else {
-                                                return Center(
-                                                  child: Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 8.0),
-                                                    child: CachedNetworkImage(
-                                                      width: 138,
-                                                      height: 224,
-                                                      imageUrl:
-                                                          '${data.thumbnail.path}.${data.thumbnail.extension}',
-                                                      fit: BoxFit.fill,
-                                                    ),
-                                                  ),
+                                                return ComicCard(
+                                                  data: data,
                                                 );
                                               }
                                             }),
                                       ],
                                     ),
                                   ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],

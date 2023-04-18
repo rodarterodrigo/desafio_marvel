@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                         characterListBloc.lastPage = true;
                         characterListBloc.add(
                           FetchCharacterListEvent(
-                              characterListBloc.index * characterListBloc.page,
+                              characterListBloc.count * characterListBloc.page,
                               10),
                         );
                       }
