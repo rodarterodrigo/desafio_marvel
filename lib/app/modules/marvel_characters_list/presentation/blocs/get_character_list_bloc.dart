@@ -27,9 +27,7 @@ class GetCharacterListBloc
   final GetCharacterListUsecase usecase;
 
   bool lastPage = false;
-  int page = 0;
   int index = 0;
-  int count = 0;
   int total = 0;
 
   List<CharacterData> characterListinfinityScroll = [];
@@ -71,7 +69,6 @@ class GetCharacterListBloc
           }
           index++;
         }).toList();
-        count = success.data.count;
         total = success.data.total;
         return const GetRequestSuccessState();
       }),
@@ -100,7 +97,7 @@ class GetCharacterListBloc
           return GenericFailureState(failure as GenericFailure);
       }
     }, (success) {
-      if ((characterListinfinityScroll.length - 5) == success.data.total) {
+      if ((characterListinfinityScroll.length - 5) == total) {
         lastPage = true;
       } else {
         lastPage = false;

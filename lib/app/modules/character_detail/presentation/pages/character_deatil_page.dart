@@ -136,14 +136,12 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                         if (scrollInfo.metrics.pixels ==
                             scrollInfo.metrics.maxScrollExtent) {
                           if (!comicListBloc.lastPage) {
-                            comicListBloc.page++;
                             comicListBloc.lastPage = true;
                             comicListBloc.add(
                               FetchComicListEvent(
                                   url: widget
                                       .characterData!.comics.collectionURI,
-                                  offset:
-                                      comicListBloc.page * comicListBloc.count,
+                                  offset: comicListBloc.horizontalList.length,
                                   limit: 5),
                             );
                           }

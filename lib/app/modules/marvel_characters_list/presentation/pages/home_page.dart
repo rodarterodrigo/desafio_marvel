@@ -58,11 +58,11 @@ class _HomePageState extends State<HomePage> {
                     if (scrollInfo.metrics.pixels ==
                         scrollInfo.metrics.maxScrollExtent) {
                       if (!characterListBloc.lastPage) {
-                        characterListBloc.page++;
                         characterListBloc.lastPage = true;
                         characterListBloc.add(
                           FetchCharacterListEvent(
-                              characterListBloc.count * characterListBloc.page,
+                              characterListBloc
+                                  .characterListinfinityScroll.length,
                               10),
                         );
                       }
