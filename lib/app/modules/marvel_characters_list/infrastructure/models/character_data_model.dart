@@ -1,11 +1,11 @@
+import 'package:desafio_marvel/app/core/shared/modules/domain/entities/marvel_thumbnail.dart';
+import 'package:desafio_marvel/app/core/shared/modules/infrastructure/models/marvel_thumbnail_model.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/character_data.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/character_thumbnail.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/comics.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/events.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/series.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/stories.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/url_list.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/models/character_thumbnail_model.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/models/comics_model.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/models/events_model.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/models/series_model.dart';
@@ -18,7 +18,7 @@ class CharacterDataModel extends CharacterData {
     required String name,
     required String description,
     required String modified,
-    required CharacterThumbnail thumbnail,
+    required MarvelThumbnnail thumbnail,
     required String resourceURI,
     required Comics comics,
     required Series series,
@@ -45,7 +45,7 @@ class CharacterDataModel extends CharacterData {
         name: json['name'],
         description: json['description'],
         modified: json['modified'],
-        thumbnail: CharacterThumbnailModel.fromJson(json['thumbnail']),
+        thumbnail: MarvelThumbnailModel.fromJson(json['thumbnail']),
         resourceURI: json['resourceURI'],
         comics: ComicsModel.fromJson(json['comics']),
         series: SeriesModel.fromJson(json['series']),

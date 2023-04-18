@@ -1,4 +1,4 @@
-import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/character_thumbnail.dart';
+import 'package:desafio_marvel/app/core/shared/modules/domain/entities/marvel_thumbnail.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/comics.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/events.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/series.dart';
@@ -10,7 +10,7 @@ class CharacterData {
   final String name;
   final String description;
   final String modified;
-  final CharacterThumbnail thumbnail;
+  final MarvelThumbnnail thumbnail;
   final String resourceURI;
   final Comics comics;
   final Series series;
