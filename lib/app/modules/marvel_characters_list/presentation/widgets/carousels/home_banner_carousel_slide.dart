@@ -75,16 +75,13 @@ class _HomeBannerCarouselSlideState extends State<HomeBannerCarouselSlide> {
                 itemBuilder: (context, index) {
                   return Center(
                     child: SizedBox(
-                      child: Hero(
-                        tag: widget.list![index % widget.list!.length].id,
-                        child: CharacterCard(
-                          characterData:
-                              widget.list![index % widget.list!.length],
-                          onTap: () => Modular.to.pushNamed(
-                              Routes.characterDetail,
-                              arguments:
-                                  widget.list![index % widget.list!.length]),
-                        ),
+                      child: CharacterCard(
+                        characterData:
+                            widget.list![index % widget.list!.length],
+                        onTap: () => Modular.to.pushNamed(
+                            Routes.characterDetail,
+                            arguments:
+                                widget.list![index % widget.list!.length]),
                       ),
                     ),
                   );

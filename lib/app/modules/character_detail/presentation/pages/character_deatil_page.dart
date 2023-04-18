@@ -15,9 +15,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CharacterDetailPage extends StatefulWidget {
-  final CharacterData? characterData;
+  final CharacterData characterData;
 
-  const CharacterDetailPage({Key? key, this.characterData}) : super(key: key);
+  const CharacterDetailPage({Key? key, required this.characterData})
+      : super(key: key);
 
   @override
   State<CharacterDetailPage> createState() => _CharacterDetailPageState();
@@ -28,7 +29,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
   @override
   void initState() {
     comicListBloc.add(
-        GetComicListEvent(widget.characterData!.comics.collectionURI, 0, 5));
+        GetComicListEvent(widget.characterData.comics.collectionURI, 0, 5));
     super.initState();
   }
 
@@ -48,7 +49,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Hero(
-                tag: widget.characterData!.id,
+                tag: widget.characterData,
                 child: Card(
                   color: Colors.black87,
                   elevation: 4,
@@ -69,7 +70,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                       children: [
                         CachedNetworkImage(
                           imageUrl:
-                              '${widget.characterData!.thumbnail.path}.${widget.characterData!.thumbnail.extension}',
+                              '${widget.characterData.thumbnail.path}.${widget.characterData.thumbnail.extension}',
                           fit: BoxFit.fill,
                         ),
                         Shimmer.fromColors(
@@ -83,7 +84,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                             baseColor: Colors.grey[100]!,
                             child: Text(
                               textAlign: TextAlign.left,
-                              widget.characterData!.name.toUpperCase(),
+                              widget.characterData.name.toUpperCase(),
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontWeight: FontWeight.w500,
@@ -100,7 +101,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                               highlightColor: Colors.grey[500]!,
                               baseColor: Colors.grey[100]!,
                               child: Text(
-                                widget.characterData!.description.toUpperCase(),
+                                widget.characterData.description.toUpperCase(),
                                 overflow: TextOverflow.fade,
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w400,
@@ -139,8 +140,8 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                             comicListBloc.lastPage = true;
                             comicListBloc.add(
                               FetchComicListEvent(
-                                  url: widget
-                                      .characterData!.comics.collectionURI,
+                                  url:
+                                      widget.characterData.comics.collectionURI,
                                   offset: comicListBloc.horizontalList.length,
                                   limit: 5),
                             );

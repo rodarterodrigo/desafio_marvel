@@ -2,7 +2,6 @@ import 'package:desafio_marvel/app/core/routes/routes.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/fetch_request_loading_state.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/global_states.dart';
 import 'package:desafio_marvel/app/core/shared/modules/presentation/blocs/states/loading_state.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/character_data.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/events/fetch_character_list_event.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/events/get_character_list_event.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/presentation/blocs/get_character_list_bloc.dart';
@@ -104,18 +103,21 @@ class _HomePageState extends State<HomePage> {
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
-                                    final CharacterData data = characterListBloc
-                                        .characterListinfinityScroll[index];
                                     if (state is FetchRequestLoadingState) {
                                       return const ListViewCharacterCardShimmer();
                                     } else {
                                       return Hero(
-                                        tag: data.id,
+                                        tag: characterListBloc
+                                            .characterListinfinityScroll[index],
                                         child: ListViewCharacterCard(
                                             onTap: () => Modular.to.pushNamed(
                                                 Routes.characterDetail,
-                                                arguments: data),
-                                            characterData: data),
+                                                arguments: characterListBloc
+                                                        .characterListinfinityScroll[
+                                                    index]),
+                                            characterData: characterListBloc
+                                                    .characterListinfinityScroll[
+                                                index]),
                                       );
                                     }
                                   })

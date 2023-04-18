@@ -64,12 +64,12 @@ class GetComicListBloc extends Bloc<ComicListEvents, GlobalStates> {
           return GenericFailureState(failure as GenericFailure);
       }
     }, (success) {
+      success.results.list.map((e) => horizontalList.add(e)).toList();
       if (horizontalList.length == total) {
         lastPage = true;
       } else {
         lastPage = false;
       }
-      success.results.list.map((e) => horizontalList.add(e)).toList();
       return const FetchRequestSuccessState();
     }));
   }
