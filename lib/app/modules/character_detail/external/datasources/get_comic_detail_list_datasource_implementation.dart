@@ -1,3 +1,4 @@
+import 'package:desafio_marvel/app/core/config/config.dart';
 import 'package:desafio_marvel/app/core/packages/request_client.dart';
 import 'package:desafio_marvel/app/core/shared/modules/infrastructure/exceptions/generic_exception.dart';
 import 'package:desafio_marvel/app/modules/character_detail/infrastructure/datasources/get_comic_detail_list_datasource.dart';
@@ -11,8 +12,13 @@ class GetComicDetailListDatasourceImplementation
   const GetComicDetailListDatasourceImplementation(this.client);
 
   @override
-  Future<ComicDataModel> getComicList(String url) async {
-    final response = await client.get(url);
+  Future<ComicDataModel> getComicList(String url, int offset, int limit) async {
+    final response = await client.get('$url'
+        '?ts=${ConfigAbstraction.timeStamp}'
+        '&apikey=${ConfigAbstraction.key}'
+        '&hash=${ConfigAbstraction.hash}'
+        '&limit=$limit'
+        '&offset=$offset');
 
     switch (response.statusCode) {
       case 200:

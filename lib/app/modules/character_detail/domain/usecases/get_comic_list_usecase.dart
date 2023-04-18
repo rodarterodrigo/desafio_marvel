@@ -4,7 +4,8 @@ import 'package:desafio_marvel/app/modules/character_detail/domain/entities/comi
 import 'package:desafio_marvel/app/modules/character_detail/domain/repositories/get_comic_list_repository.dart';
 
 abstract class GetComicListUsecase {
-  Future<Either<GeneralFailures, ComicData>> call(final String url);
+  Future<Either<GeneralFailures, ComicData>> call(
+      final String url, int offset, int limit);
 }
 
 class GetComicListUsecaseImplementation implements GetComicListUsecase {
@@ -13,6 +14,7 @@ class GetComicListUsecaseImplementation implements GetComicListUsecase {
   const GetComicListUsecaseImplementation(this.repository);
 
   @override
-  Future<Either<GeneralFailures, ComicData>> call(String url) async =>
-      await repository.getComicList(url);
+  Future<Either<GeneralFailures, ComicData>> call(
+          String url, int offset, int limit) async =>
+      await repository.getComicList(url, offset, limit);
 }

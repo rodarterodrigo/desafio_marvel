@@ -23,28 +23,28 @@ void main() {
   test('Should return a ComicDataModel', () async {
     when(() => client.get(any())).thenAnswer((invocation) async =>
         const HttpResponse(data: requestSuccessResponse, statusCode: 200));
-    final result = await datasource.getComicList('');
+    final result = await datasource.getComicList('', 1, 2);
     expect(result, isA<ComicDataModel>());
   });
 
   test('Should throws a ForbidenException', () {
     when(() => client.get(any())).thenAnswer((invocation) async =>
         const HttpResponse(data: requestSuccessResponse, statusCode: 403));
-    final result = datasource.getComicList('');
+    final result = datasource.getComicList('', 1, 2);
     expect(result, throwsA(isA<ForbidenException>()));
   });
 
   test('Should throws a GenericException', () {
     when(() => client.get(any())).thenAnswer((invocation) async =>
         const HttpResponse(data: requestSuccessResponse, statusCode: 400));
-    final result = datasource.getComicList('');
+    final result = datasource.getComicList('', 1, 2);
     expect(result, throwsA(isA<GenericException>()));
   });
 
   test('Should throws a ReceiveTimeoutException', () {
     when(() => client.get(any()))
         .thenThrow(const ReceiveTimeoutException('ReceiveTimeoutException'));
-    final result = datasource.getComicList('');
+    final result = datasource.getComicList('', 1, 2);
     expect(result, throwsA(isA<ReceiveTimeoutException>()));
   });
 }

@@ -44,7 +44,7 @@ class ComicDetailModel extends ComicDetailEntity {
           title: json['title'],
           issueNumber: json['issueNumber'],
           variantDescription: json['variantDescription'],
-          description: json['description'],
+          description: json['description'] ?? '',
           modified: json['modified'],
           isbn: json['isbn'],
           upc: json['upc'],

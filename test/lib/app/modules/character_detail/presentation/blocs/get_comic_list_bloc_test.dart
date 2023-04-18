@@ -38,9 +38,9 @@ void main() {
   test(
       'Should return all states in order and GetRequestSuccessState as final state',
       () {
-    when(() => usecase(any()))
+    when(() => usecase(any(), any(), any()))
         .thenAnswer((invocation) async => const Right(data));
-    bloc.add(const GetComicListEvent(''));
+    bloc.add(const GetComicListEvent('', 1, 2));
     expect(
         bloc.stream,
         emitsInOrder([
@@ -52,9 +52,9 @@ void main() {
   test(
       'Should return all states in order and InvalidKeyFailureState as final state',
       () {
-    when(() => usecase(any())).thenAnswer(
+    when(() => usecase(any(), any(), any())).thenAnswer(
         (invocation) async => const Left(ForbidenFailure('ForbidenFailure')));
-    bloc.add(const GetComicListEvent(''));
+    bloc.add(const GetComicListEvent('', 1, 2));
     expect(
         bloc.stream,
         emitsInOrder([
@@ -66,9 +66,9 @@ void main() {
   test(
       'Should return all states in order and ReceiveTimeoutFailureState as final state',
       () {
-    when(() => usecase(any())).thenAnswer((invocation) async =>
+    when(() => usecase(any(), any(), any())).thenAnswer((invocation) async =>
         const Left(ReceiveTimeoutFailure('ReceiveTimeoutFailure')));
-    bloc.add(const GetComicListEvent(''));
+    bloc.add(const GetComicListEvent('', 1, 2));
     expect(
         bloc.stream,
         emitsInOrder([
@@ -80,9 +80,9 @@ void main() {
   test(
       'Should return all states in order and GenericFailureState as final state',
       () {
-    when(() => usecase(any())).thenAnswer(
+    when(() => usecase(any(), any(), any())).thenAnswer(
         (invocation) async => const Left(GenericFailure('GenericFailure')));
-    bloc.add(const GetComicListEvent(''));
+    bloc.add(const GetComicListEvent('', 1, 2));
     expect(
         bloc.stream,
         emitsInOrder([
@@ -94,9 +94,9 @@ void main() {
   test(
       'Should return all states in order and FetchRequestSuccessState as final state',
       () {
-    when(() => usecase(any()))
+    when(() => usecase(any(), any(), any()))
         .thenAnswer((invocation) async => const Right(data));
-    bloc.add(const FetchComicListEvent(''));
+    bloc.add(const FetchComicListEvent(url: '', offset: 2, limit: 3));
     expect(
         bloc.stream,
         emitsInOrder([
@@ -108,9 +108,9 @@ void main() {
   test(
       'Should return all states in order and ForbidenFailureState as final state',
       () {
-    when(() => usecase(any())).thenAnswer(
+    when(() => usecase(any(), any(), any())).thenAnswer(
         (invocation) async => const Left(ForbidenFailure('ForbidenFailure')));
-    bloc.add(const FetchComicListEvent(''));
+    bloc.add(const FetchComicListEvent(url: '', offset: 2, limit: 3));
     expect(
         bloc.stream,
         emitsInOrder([
@@ -122,9 +122,9 @@ void main() {
   test(
       'Should return all states in order and ReceiveTimeoutFailureState as final state',
       () {
-    when(() => usecase(any())).thenAnswer((invocation) async =>
+    when(() => usecase(any(), any(), any())).thenAnswer((invocation) async =>
         const Left(ReceiveTimeoutFailure('ReceiveTimeoutFailure')));
-    bloc.add(const FetchComicListEvent(''));
+    bloc.add(const FetchComicListEvent(url: '', offset: 2, limit: 3));
     expect(
         bloc.stream,
         emitsInOrder([
@@ -136,9 +136,9 @@ void main() {
   test(
       'Should return all states in order and GenericFailureState as final state',
       () {
-    when(() => usecase(any())).thenAnswer(
+    when(() => usecase(any(), any(), any())).thenAnswer(
         (invocation) async => const Left(GenericFailure('GenericFailure')));
-    bloc.add(const FetchComicListEvent(''));
+    bloc.add(const FetchComicListEvent(url: '', offset: 2, limit: 3));
     expect(
         bloc.stream,
         emitsInOrder([

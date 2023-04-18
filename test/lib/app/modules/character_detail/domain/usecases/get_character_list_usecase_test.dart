@@ -19,30 +19,31 @@ final GetComicListUsecase usecase =
 
 void main() {
   test('Should return a ComicData entity', () async {
-    when(() => repository.getComicList(any()))
+    when(() => repository.getComicList(any(), any(), any()))
         .thenAnswer((invocation) async => Right(ComicDataFake()));
-    final result = await usecase('');
+    final result = await usecase('', 1, 2);
     expect(result.fold(id, id), isA<ComicData>());
   });
 
   test('Should return a ForbidenFailure entity', () async {
-    when(() => repository.getComicList(any())).thenAnswer(
+    when(() => repository.getComicList(any(), any(), any())).thenAnswer(
         (invocation) async => const Left(ForbidenFailure('ForbidenFailure')));
-    final result = await usecase('');
+    final result = await usecase('', 1, 2);
     expect(result.fold(id, id), isA<ForbidenFailure>());
   });
 
   test('Should return a GenericFailure entity', () async {
-    when(() => repository.getComicList(any())).thenAnswer(
+    when(() => repository.getComicList(any(), any(), any())).thenAnswer(
         (invocation) async => const Left(GenericFailure('GenericFailure')));
-    final result = await usecase('');
+    final result = await usecase('', 1, 2);
     expect(result.fold(id, id), isA<GenericFailure>());
   });
 
   test('Should return a ReceiveTimeoutFailure entity', () async {
-    when(() => repository.getComicList(any())).thenAnswer((invocation) async =>
-        const Left(ReceiveTimeoutFailure('ReceiveTimeoutFailure')));
-    final result = await usecase('');
+    when(() => repository.getComicList(any(), any(), any())).thenAnswer(
+        (invocation) async =>
+            const Left(ReceiveTimeoutFailure('ReceiveTimeoutFailure')));
+    final result = await usecase('', 1, 2);
     expect(result.fold(id, id), isA<ReceiveTimeoutFailure>());
   });
 }

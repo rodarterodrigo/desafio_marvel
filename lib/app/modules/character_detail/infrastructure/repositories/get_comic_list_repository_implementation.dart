@@ -16,9 +16,10 @@ class GetComicListRepositoryImplementation implements GetComicListRepository {
   GetComicListRepositoryImplementation(this.datasource);
 
   @override
-  Future<Either<GeneralFailures, ComicData>> getComicList(String url) async {
+  Future<Either<GeneralFailures, ComicData>> getComicList(
+      String url, int offset, int limit) async {
     try {
-      return Right(await datasource.getComicList(url));
+      return Right(await datasource.getComicList(url, offset, limit));
     } on ForbidenException catch (e) {
       return Left(ForbidenFailure(e.message));
     } on ReceiveTimeoutException catch (e) {

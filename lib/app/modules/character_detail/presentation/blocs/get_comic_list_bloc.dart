@@ -32,7 +32,7 @@ class GetComicListBloc extends Bloc<ComicListEvents, GlobalStates> {
   Future<void> _mapGetComicListToState(
       GetComicListEvent event, Emitter<GlobalStates> emitter) async {
     emitter(const LoadingState());
-    final request = await usecase(event.url);
+    final request = await usecase(event.url, 0, 10);
     emitter(
       request.fold((failure) {
         switch (failure.runtimeType) {
@@ -53,7 +53,7 @@ class GetComicListBloc extends Bloc<ComicListEvents, GlobalStates> {
   Future<void> _mapFetchComicListToState(
       FetchComicListEvent event, Emitter<GlobalStates> emitter) async {
     emitter(const FetchRequestLoadingState());
-    final result = await usecase(event.url);
+    final result = await usecase(event.url, (page * 10), 10);
     emitter(result.fold((failure) {
       switch (failure.runtimeType) {
         case ReceiveTimeoutFailure:

@@ -25,33 +25,33 @@ final GetComicListRepository repository =
 
 void main() {
   test('Should return a ComicData entity', () async {
-    when(() => datasource.getComicList(any()))
+    when(() => datasource.getComicList(any(), any(), any()))
         .thenAnswer((invocation) async => ComicDataModelFake());
-    final result = await repository.getComicList('');
+    final result = await repository.getComicList('', 1, 2);
     expect(result.fold(id, id), isA<ComicData>());
   });
 
   test('Should throw a ForbidenException an return a ForbidenFailure',
       () async {
-    when(() => datasource.getComicList(any()))
+    when(() => datasource.getComicList(any(), any(), any()))
         .thenThrow(const ForbidenException('ForbidenException'));
-    final result = await repository.getComicList('');
+    final result = await repository.getComicList('', 1, 2);
     expect(result.fold(id, id), isA<ForbidenFailure>());
   });
 
   test(
       'Should throw a ReceiveTimeoutException an return a ReceiveTimeoutFailure',
       () async {
-    when(() => datasource.getComicList(any()))
+    when(() => datasource.getComicList(any(), any(), any()))
         .thenThrow(const ReceiveTimeoutException('ReceiveTimeoutException'));
-    final result = await repository.getComicList('');
+    final result = await repository.getComicList('', 1, 2);
     expect(result.fold(id, id), isA<ReceiveTimeoutFailure>());
   });
 
   test('Should throw a GenericException an return a GenericFailure', () async {
-    when(() => datasource.getComicList(any()))
+    when(() => datasource.getComicList(any(), any(), any()))
         .thenThrow(const GenericException('GenericException'));
-    final result = await repository.getComicList('');
+    final result = await repository.getComicList('', 1, 2);
     expect(result.fold(id, id), isA<GenericFailure>());
   });
 }

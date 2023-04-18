@@ -3,6 +3,10 @@ import 'package:desafio_marvel/app/modules/character_detail/presentation/blocs/e
 class GetComicListEvent implements ComicListEvents {
   @override
   final String url;
+  @override
+  final int offset;
+  @override
+  final int limit;
 
-  const GetComicListEvent(this.url);
+  const GetComicListEvent(this.url, this.offset, this.limit);
 }
