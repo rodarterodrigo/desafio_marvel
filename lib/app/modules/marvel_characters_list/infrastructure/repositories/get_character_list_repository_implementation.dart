@@ -15,6 +15,7 @@ import 'package:desafio_marvel/app/core/shared/modules/infrastructure/exceptions
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/entities/request_success.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/domain/repositories/get_character_list_repository.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/datasources/get_character_list_datasource.dart';
+import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/models/request_success_model.dart';
 
 class GetCharacterListRepositoryImplementation
     implements GetCharacterListRepository {
@@ -26,7 +27,8 @@ class GetCharacterListRepositoryImplementation
   Future<Either<GeneralFailures, RequestSuccess>> getCharacterList(
       int offset, int limit) async {
     try {
-      return Right(await datasource.getCharacterList(offset, limit));
+      return Right(RequestSuccessModel.fromJson(
+          await datasource.getCharacterList(offset, limit)));
     } on ForbidenException catch (e) {
       return Left(ForbidenFailure(e.message));
     } on InvalidKeyException catch (e) {

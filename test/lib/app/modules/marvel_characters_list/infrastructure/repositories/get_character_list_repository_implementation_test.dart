@@ -19,6 +19,8 @@ import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../external/response_mocks/request_success_response.dart';
+
 class GetCharacterListDatasourceMock extends Mock
     implements GetCharacterListDatasource {}
 
@@ -31,7 +33,7 @@ final GetCharacterListRepository repository =
 void main() {
   test('Should return a RequestSuccess entity', () async {
     when(() => datasource.getCharacterList(any(), any()))
-        .thenAnswer((invocation) async => RequestSuccessModelFake());
+        .thenAnswer((invocation) async => requestSuccessResponse);
     final result = await repository.getCharacterList(1, 2);
     expect(result.fold(id, id), isA<RequestSuccess>());
   });

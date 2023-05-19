@@ -7,7 +7,6 @@ import 'package:desafio_marvel/app/core/shared/modules/infrastructure/exceptions
 import 'package:desafio_marvel/app/core/shared/modules/infrastructure/exceptions/missing_parameter_exception.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/external/settings/marvel_character_list_settings.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/datasources/get_character_list_datasource.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/models/request_success_model.dart';
 
 class GetCharacterListDatasourceImplementation
     implements GetCharacterListDatasource {
@@ -16,7 +15,7 @@ class GetCharacterListDatasourceImplementation
   const GetCharacterListDatasourceImplementation(this.client);
 
   @override
-  Future<RequestSuccessModel> getCharacterList(int offset, int limit) async {
+  Future<Map<String, dynamic>> getCharacterList(int offset, int limit) async {
     final response = await client.get('${ConfigAbstraction.server}'
         '${MarvelCharacterListSettings.endPoint}'
         '?ts=${ConfigAbstraction.timeStamp}'
@@ -27,7 +26,7 @@ class GetCharacterListDatasourceImplementation
 
     switch (response.statusCode) {
       case 200:
-        return RequestSuccessModel.fromJson(response.data);
+        return response.data;
       case 409:
         throw MissingParameterException(response.data['message'].toString());
       case 401:

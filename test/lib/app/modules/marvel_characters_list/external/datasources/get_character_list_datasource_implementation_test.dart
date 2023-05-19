@@ -8,7 +8,6 @@ import 'package:desafio_marvel/app/core/shared/modules/infrastructure/exceptions
 import 'package:desafio_marvel/app/core/shared/modules/infrastructure/exceptions/receive_timeout_exception.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/external/datasources/get_character_list_datasource_implementation.dart';
 import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/datasources/get_character_list_datasource.dart';
-import 'package:desafio_marvel/app/modules/marvel_characters_list/infrastructure/models/request_success_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -26,7 +25,7 @@ void main() {
     when(() => client.get(any())).thenAnswer((invocation) async =>
         const HttpResponse(data: requestSuccessResponse, statusCode: 200));
     final result = await datasource.getCharacterList(1, 2);
-    expect(result, isA<RequestSuccessModel>());
+    expect(result, isA<Map<String, dynamic>>());
   });
 
   test('Should throws a MissingParameterException', () async {
